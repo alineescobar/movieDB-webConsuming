@@ -106,7 +106,6 @@ struct APIRequestNowPlaying {
     }
 }
 
-
 //MARK: - ViewController
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -152,37 +151,69 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as! MovieTableViewCell
+        let section = indexPath.section
         
-        let movie = popularMovies[indexPath.row]
-    
-        let url = URL(string:"https://image.tmdb.org/t/p/original\(movie.poster_path)")
+        if (section == 0){
+            let movie = popularMovies[indexPath.row]
+        
+            let url = URL(string:"https://image.tmdb.org/t/p/original\(movie.poster_path)")
 
-        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
+            let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
 
-            let image: UIImage = UIImage(data: data!)!
-            DispatchQueue.main.async {
-                cell.posterImage.image = UIImage(data: data!)!
+                let image: UIImage = UIImage(data: data!)!
+                DispatchQueue.main.async {
+                    cell.posterImage.image = UIImage(data: data!)!
+                }
             }
+            task.resume()
+            
+            cell.movieTitle.text = movie.title
+            cell.overviewText.text = movie.overview
+            cell.rating.text = String(movie.vote_average)
+        } else {
+            
+            let movie = nowPlayingMovies[indexPath.row]
+            let url = URL(string:"https://image.tmdb.org/t/p/original\(movie.poster_path)")
+
+            let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
+
+                let image: UIImage = UIImage(data: data!)!
+                DispatchQueue.main.async {
+                    cell.posterImage.image = UIImage(data: data!)!
+                }
+            }
+            task.resume()
+            
+            cell.movieTitle.text = movie.title
+            cell.overviewText.text = movie.overview
+            cell.rating.text = String(movie.vote_average)
         }
-        task.resume()
         
-        cell.movieTitle.text = movie.title
-        cell.overviewText.text = movie.overview
-        cell.rating.text = String(movie.vote_average)
+        
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "toDetail", sender: [indexPath.row])
+        performSegue(withIdentifier: "toDetail", sender: indexPath)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
+        
         if segue.identifier == "toDetail", let indexPath = sender as? IndexPath {
-            let movie = popularMovies[indexPath.row]
-            guard let destination = segue.destination as? MovieDetailViewController else { return }
-            destination.popularMovie = movie
+            let section = indexPath.section
+            
+            if (section == 0){
+                let movie = popularMovies[indexPath.row]
+                guard let destination = segue.destination as? MovieDetailViewController else { return }
+                destination.movieDetails = movie
+            } else {
+                let movie = nowPlayingMovies[indexPath.row]
+                guard let destination = segue.destination as? MovieDetailViewController else { return }
+                destination.movieDetails = movie
+            }
+            
+            
 
         }
     }

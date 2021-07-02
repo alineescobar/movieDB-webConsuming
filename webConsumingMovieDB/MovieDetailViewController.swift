@@ -10,7 +10,7 @@ import UIKit
 class MovieDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-    var popularMovie: Movies?
+    var movieDetails: Movies?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,8 +21,6 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
-        
-        print(popularMovie)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -32,7 +30,7 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "detailsCell", for: indexPath) as! MovieDetailTableViewCell
-        if let movie = popularMovie {
+        if let movie = movieDetails {
             
             let url = URL(string:"https://image.tmdb.org/t/p/original\(movie.poster_path)")
 
