@@ -7,16 +7,72 @@
 
 import UIKit
 
-//API key: ed59a401ccb87b2fa3fd6a859f9563c4
-//Token: eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlZDU5YTQwMWNjYjg3YjJmYTNmZDZhODU5Zjk1NjNjNCIsInN1YiI6IjYwZGU4NDQ1NGNhNjc2MDA0NjE4MTVjYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.kAAOj9FWmTPVIyf9OPLLW4SUw0dCLmRQcklMs_08-58
+//MARK: - API Info
+    
+    //API key: ed59a401ccb87b2fa3fd6a859f9563c4
+    //URL popular: https://api.themoviedb.org/3/movie/popular?api_key=ed59a401ccb87b2fa3fd6a859f9563c4
+    //URL Now Playing: https://api.themoviedb.org/3/movie/now_playing?api_key=ed59a401ccb87b2fa3fd6a859f9563c4
 
+
+//MARK: - Struct Movies
+struct Movies: CustomStringConvertible {
+    let id: Int
+    let title: String
+    let overview: String
+    let vote_average: Double
+    
+    var description: String{
+        return "\(title), \(overview) with \(vote_average) vote "
+    }
+} //Movies
+
+
+//MARK: - ViewController
 class ViewController: UIViewController {
 
+    var popularMovies: [Movies] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
+        
+        //MARK: - API request - Popular Movies
+        let urlString = "https://api.themoviedb.org/3/movie/popular?api_key=ed59a401ccb87b2fa3fd6a859f9563c4"
+        let url = URL(string: urlString)!
+    
+        URLSession.shared.dataTask(with: url) { data, response, error in
+        
+            typealias TMDBMovies = [String: Any]
+
+            guard let data = data,
+                  let json = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed), //parsing
+                  let dictionary = json as? [String: Any], //converting parsing into local dictionary
+                  let resultMovies = dictionary["results"] as? [TMDBMovies] //converting parsing key
+            else { return }
+            
+            //MARK: - Converting dictionary to structure
+            var localPopularMovies: [Movies] = []
+           
+            for moviesDictionary in resultMovies {
+                
+                guard let id = moviesDictionary["id"] as? Int,
+                      let title = moviesDictionary["title"] as? String,
+                      let overview = moviesDictionary["overview"] as? String,
+                      let vote_average = moviesDictionary["vote_average"] as? Double
+                else { continue }
+                
+                let movie = Movies(id: id, title: title, overview: overview, vote_average: vote_average)
+                localPopularMovies.append(movie)
+            }
+            
+            self.popularMovies = localPopularMovies //popular movies of class
+            
+            print(self.popularMovies)
+            
+        } // API request
+        .resume()
+        
+    }// viewDidLoad
 
 
-}
+}//ViewController
 
