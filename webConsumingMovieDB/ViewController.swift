@@ -28,9 +28,11 @@ struct Movies: CustomStringConvertible {
 
 
 //MARK: - ViewController
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var popularMovies: [Movies] = []
+    
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,13 +68,33 @@ class ViewController: UIViewController {
             
             self.popularMovies = localPopularMovies //popular movies of class
             
-            print(self.popularMovies)
-            
         } // API request
         .resume()
         
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        
     }// viewDidLoad
 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return popularMovies.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as! MovieTableViewCell
+        
+        let movie = popularMovies[indexPath.row]
+        
+        cell.movieTitle.text = movie.title
+        cell.overviewText.text = movie.overview
+        cell.rating.text = String(movie.vote_average)
+        
+        return cell
+    }
 
 }//ViewController
 
