@@ -21,6 +21,8 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+        
+        print(popularMovie)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
