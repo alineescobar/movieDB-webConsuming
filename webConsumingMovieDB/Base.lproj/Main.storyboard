@@ -98,7 +98,7 @@
                             <constraint firstAttribute="bottom" secondItem="uhh-Oa-tGf" secondAttribute="bottom" id="nob-Wx-ueL"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Movies" id="W3O-OZ-mfw"/>
+                    <navigationItem key="navigationItem" title="Movies" largeTitleDisplayMode="always" id="W3O-OZ-mfw"/>
                     <connections>
                         <outlet property="tableView" destination="uhh-Oa-tGf" id="1my-C0-5dp"/>
                         <segue destination="Q9F-Pf-Y5c" kind="show" identifier="toDetail" id="RKs-9s-Sje"/>
@@ -216,7 +216,7 @@
                             <constraint firstItem="wYK-c7-LL7" firstAttribute="trailing" secondItem="Oj0-SP-SLZ" secondAttribute="trailing" id="tSr-aJ-hH5"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Details" id="w5t-11-BgA"/>
+                    <navigationItem key="navigationItem" title="Details" largeTitleDisplayMode="never" id="w5t-11-BgA"/>
                     <connections>
                         <outlet property="tableView" destination="wYK-c7-LL7" id="iNc-oF-94s"/>
                     </connections>
@@ -230,8 +230,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="P0T-Uj-saG" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Hqe-Ou-6no">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Hqe-Ou-6no">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

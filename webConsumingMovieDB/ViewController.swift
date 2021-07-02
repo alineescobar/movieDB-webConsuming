@@ -21,6 +21,7 @@ struct Movies {
     let overview: String
     let vote_average: Double
     let poster_path: String
+    let genre_ids: [Int]
     
 } //Movies
 
@@ -52,10 +53,11 @@ struct APIRequestPopularMovies {
                       let title = moviesDictionary["title"] as? String,
                       let overview = moviesDictionary["overview"] as? String,
                       let vote_average = moviesDictionary["vote_average"] as? Double,
-                      let poster_path = moviesDictionary["poster_path"] as? String
+                      let poster_path = moviesDictionary["poster_path"] as? String,
+                      let genre_ids = moviesDictionary["genre_ids"] as? [Int]
                 else { continue }
                 
-                let movie = Movies(id: id, title: title, overview: overview, vote_average: vote_average, poster_path: poster_path)
+                let movie = Movies(id: id, title: title, overview: overview, vote_average: vote_average, poster_path: poster_path, genre_ids: genre_ids)
                 localPopularMovies.append(movie)
             }
             completionHandler(localPopularMovies)
@@ -93,10 +95,11 @@ struct APIRequestNowPlaying {
                   let title = moviesDictionary["title"] as? String,
                   let overview = moviesDictionary["overview"] as? String,
                   let vote_average = moviesDictionary["vote_average"] as? Double,
-                  let poster_path = moviesDictionary["poster_path"] as? String
+                  let poster_path = moviesDictionary["poster_path"] as? String,
+                  let genre_ids = moviesDictionary["genre_ids"] as? [Int]
             else { continue }
 
-            let movie = Movies(id: id, title: title, overview: overview, vote_average: vote_average, poster_path: poster_path)
+            let movie = Movies(id: id, title: title, overview: overview, vote_average: vote_average, poster_path: poster_path, genre_ids: genre_ids)
             localNowPlaying.append(movie)
         }
         completionHandler(localNowPlaying)
@@ -115,6 +118,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var nowPlayingMovies: [Movies] = []
     var popularMoviesAPI = APIRequestPopularMovies()
     var nowPlayingMoviesAPI = APIRequestNowPlaying()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -212,9 +217,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 guard let destination = segue.destination as? MovieDetailViewController else { return }
                 destination.movieDetails = movie
             }
-            
-            
-
         }
     }
     
