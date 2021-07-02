@@ -118,7 +118,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if segue.identifier == "toDetail", let indexPath = sender as? IndexPath {
             let movie = popularMovies[indexPath.row]
             guard let destination = segue.destination as? MovieDetailViewController else { return }
-            
+            destination.popularMovie = movie
         }
     }
     
