@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="uhh-Oa-tGf">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="146" width="414" height="750"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="movieCell" rowHeight="143" id="XWr-mI-gYD" customClass="MovieTableViewCell" customModule="webConsumingMovieDB" customModuleProvider="target">
@@ -88,13 +88,20 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="wYa-iC-Zvv">
+                                <rect key="frame" x="0.0" y="95" width="414" height="51"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="uhh-Oa-tGf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3Al-cD-EyQ"/>
-                            <constraint firstItem="uhh-Oa-tGf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="7Mc-ui-Lk4"/>
+                            <constraint firstItem="uhh-Oa-tGf" firstAttribute="top" secondItem="wYa-iC-Zvv" secondAttribute="bottom" id="E7S-p5-x1o"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="uhh-Oa-tGf" secondAttribute="trailing" id="EUK-i4-gG4"/>
+                            <constraint firstItem="wYa-iC-Zvv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="7" id="OnS-PN-oco"/>
+                            <constraint firstItem="wYa-iC-Zvv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OzX-pn-KrY"/>
+                            <constraint firstItem="wYa-iC-Zvv" firstAttribute="leading" secondItem="uhh-Oa-tGf" secondAttribute="leading" id="a8b-Mn-fjN"/>
                             <constraint firstAttribute="bottom" secondItem="uhh-Oa-tGf" secondAttribute="bottom" id="nob-Wx-ueL"/>
                         </constraints>
                     </view>

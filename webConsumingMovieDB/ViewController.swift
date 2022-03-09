@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  webConsumingMovieDB
 //
-//  Created by Aline Osana Escobar on 01/07/21.
+//  Dupla: Aline Escobar e Eduarda Soares 
 //
 
 import UIKit
@@ -146,7 +146,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return 2
     }
     
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let header = view as? UITableViewHeaderFooterView else { return }
+        header.textLabel?.textColor = UIColor.black
+        header.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        header.textLabel?.frame = header.bounds
+        header.textLabel?.text = self.tableView(tableView, titleForHeaderInSection: section)
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
         return section==0 ? "Popular movies" : "Now playing"
     }
     
@@ -165,9 +174,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
             let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
 
-                let image: UIImage = UIImage(data: data!)!
                 DispatchQueue.main.async {
                     cell.posterImage.image = UIImage(data: data!)!
+                    cell.posterImage.layer.cornerRadius = 10
+
                 }
             }
             task.resume()
@@ -185,6 +195,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 let image: UIImage = UIImage(data: data!)!
                 DispatchQueue.main.async {
                     cell.posterImage.image = UIImage(data: data!)!
+                    cell.posterImage.layer.cornerRadius = 10
                 }
             }
             task.resume()

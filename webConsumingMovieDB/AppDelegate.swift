@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  webConsumingMovieDB
 //
-//  Created by Aline Osana Escobar on 01/07/21.
+//  Dupla: Aline Escobar e Eduarda Soares
 //
 
 import UIKit

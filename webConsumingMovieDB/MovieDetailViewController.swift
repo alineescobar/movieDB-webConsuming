@@ -2,7 +2,7 @@
 //  MovieDetailViewController.swift
 //  webConsumingMovieDB
 //
-//  Created by Aline Osana Escobar on 02/07/21.
+//  Dupla: Aline Escobar e Eduarda Soares
 //
 
 import UIKit
@@ -41,6 +41,13 @@ struct APIRequestGenres {
 
             let genre = Genre(id: id, name: name)
             localGenre.append(genre)
+            
+            
+            print(genre.name)
+            for genres in localGenre {
+                print("oi: \(genres)")
+            }
+            
         }
         completionHandler(localGenre)
 
@@ -72,6 +79,7 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
@@ -88,6 +96,8 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
                 let image: UIImage = UIImage(data: data!)!
                 DispatchQueue.main.async {
                     cell.coverImage.image = UIImage(data: data!)!
+                    cell.coverImage.layer.cornerRadius = 10
+
                 }
             }
             task.resume()
